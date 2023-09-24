@@ -1,13 +1,10 @@
 <template>
   <h1>Ilm</h1>
-
-
   <div class="container text-center">
     <div class="row">
       <div class="col">
         Sisesta linna nimi:
       </div>
-
       <div class="col">
         <input v-model="cityName">
       </div>
@@ -26,23 +23,16 @@
        Õhuniiskus {{weatherResponse.humidity}} %
       </div>
       <br>
-
       <div class="col">
        Kustuta linn ja andmed {{cityName }}
         <br>
-
         <button @click="deleteCityAndWeatherInfo">Kustuta</button>
       </div>
-
-
     </div>
   </div>
-
-
 </template>
 
 <script>
-
 export default {
   name: 'HomeView',
   data() {
