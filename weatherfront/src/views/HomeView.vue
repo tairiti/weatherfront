@@ -1,5 +1,6 @@
 <template>
   <h1>Ilm</h1>
+  <Alert :message="errorResponse.message"/>
   <div class="container text-center">
     <div class="row">
       <div class="col">
@@ -33,8 +34,11 @@
 </template>
 
 <script>
+import Alert from "@/views/Alert.vue";
+
 export default {
   name: 'HomeView',
+  components: {Alert},
   data() {
     return {
       cityName: '',
@@ -42,6 +46,10 @@ export default {
         temperature: 0,
         windSpeed: 0,
         humidity: 0
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
     }
   },
@@ -56,9 +64,18 @@ export default {
       ).then(response => {
         this.weatherResponse = response.data
       }).catch(error => {
-        const errorResponseBody = error.response.data
+        this.errorResponse = error.response.data
+        this.handleErrorMessage(error);
       })
     },
+
+    handleErrorMessage() {
+      setTimeout(() => {
+        this.errorResponse.message = ''
+        this.cityName = ''
+      }, 2000)
+    },
+
     deleteCityAndWeatherInfo() {
       this.$http.delete("/weather", {
             params: {
